@@ -53,27 +53,31 @@ function addItemtoCart() {
     for(var i = 1; i <= n1;i++){
         var a1 = readlineSync.question("Enter item number " + i + " name from above list of items : ");
         a1 = a1.toLowerCase();
-        var c1 = readlineSync.questionInt("Enter how many " + a1 + " do you want to add to your cart? : ");
-        nn.push(a1);
+       
     
-        if (nn.includes("soap")){
+        if (a1 == "soap"){
+            var c1 = readlineSync.questionInt("Enter how many " + a1 + " do you want to add to your cart? : ");
          ob1 = new cart("soap",299,0,c1);
           
         }
-        else if(nn.includes("shampoo")){
-             ob2 = new cart("shampoo",399,0,c1);
+        else if(a1 == "shampoo"){
+            var c2 = readlineSync.questionInt("Enter how many " + a1 + " do you want to add to your cart? : ");
+             ob2 = new cart("shampoo",399,0,c2);
             
         }
-        else if(nn.includes("comb")){
-             ob3 = new cart("comb",199,0,c1);
+        else if(a1 == "comb"){
+            var c3 = readlineSync.questionInt("Enter how many " + a1 + " do you want to add to your cart? : ");
+             ob3 = new cart("comb",199,0,c3);
            
         }
-        else if(nn.includes("oil")){
-             ob4 = new cart("oil",350,0,c1);
+        else if(a1 == "oil"){
+            var c4 = readlineSync.questionInt("Enter how many " + a1 + " do you want to add to your cart? : ");
+             ob4 = new cart("oil",350,0,c4);
             
         }
-        else if(nn.includes("wax")){
-             ob5 = new cart("wax",150,0,c1);
+        else if(a1 == "wax"){
+            var c5 = readlineSync.questionInt("Enter how many " + a1 + " do you want to add to your cart? : ");
+             ob5 = new cart("wax",150,0,c5);
         }
 
         else{
@@ -105,21 +109,33 @@ function removeItemfromCart() {
     for (var i = 1; i <= n2; i++) {
         var a2 = readlineSync.question("Enter item number " + i + " name to be removed from list : ").toLowerCase();
         var c2 = readlineSync.questionInt("Enter the quantity of this item to be removed from cart : ");
-
-        
-        if (nn.includes(a2)) {
             
-            nn = nn.filter(item => item !== a2);
+            if (a2 === "soap" && ob1.count > 0){
+                ob1.count = ob1.count-c2; 
+                console.log(c2 +  " " + a2 + "s have been removed from cart!")
 
-            
-            if (a2 === "soap" && ob1.count > 0) ob1.count = ob1.count-1; 
-            if (a2 === "shampoo"&& ob2.count > 0) ob2.count = ob2.count-1; 
-            if (a2 === "comb"&& ob3.count > 0) ob3.count = ob3.count-1; 
-            if (a2 === "oil"&& ob4.count > 0) ob4.count = ob4.count-1; 
-            if (a2 === "wax"&& ob5.count > 0) ob5.count = ob5.count-1; 
+            } 
+            else if (a2 === "shampoo"&& ob2.count > 0){
+                ob2.count = ob2.count-c2;
+                console.log(c2 +  " " + a2 + "s have been removed from cart!")
 
-            console.log(a2 + " removed successfully!");
-        } else {
+            }  
+            else if (a2 === "comb"&& ob3.count > 0){
+                ob3.count = ob3.count-c2; 
+                console.log(c2 +  " " + a2 + "s have been removed from cart!")
+
+            } 
+           else if (a2 === "oil"&& ob4.count > 0){
+            ob4.count = ob4.count-c2; 
+            console.log(c2 +  " " + a2 + "s have been removed from cart!")
+
+            } 
+            else if (a2 === "wax"&& ob5.count > 0){
+                ob5.count = ob5.count-c2; 
+                console.log(c2 +  " " + a2 + "s have been removed from cart!")
+            } 
+
+         else {
             console.log("Error! " + a2 + " is not in the cart.");
         }
     }
@@ -130,9 +146,9 @@ function removeItemfromCart() {
 
 function listItems() {
     console.log("List of items in the cart along with their prices and quantities are as follows:");
-    if (ob1.price > 0) console.log(ob1.item + ": $" + ob1.price + " Quantity : " + ob1.count);
-    if (ob2.price > 0) console.log(ob2.item + ": $" + ob2.price + " Quantity : " + ob1.count);
-    if (ob3.price > 0) console.log(ob3.item + ": $" + ob3.price + " Quantity : " + ob1.count);
-    if (ob4.price > 0) console.log(ob4.item + ": $" + ob4.price + " Quantity : " + ob1.count);
-    if (ob5.price > 0) console.log(ob5.item + ": $" + ob5.price + " Quantity : " + ob1.count);
+    if (ob1.count > 0) console.log(ob1.item + ": $" + ob1.price + " Quantity : " + ob1.count);
+    if (ob2.count > 0) console.log(ob2.item + ": $" + ob2.price + " Quantity : " + ob2.count);
+    if (ob3.count > 0) console.log(ob3.item + ": $" + ob3.price + " Quantity : " + ob3.count);
+    if (ob4.count > 0) console.log(ob4.item + ": $" + ob4.price + " Quantity : " + ob4.count);
+    if (ob5.count > 0) console.log(ob5.item + ": $" + ob5.price + " Quantity : " + ob5.count);
 }
