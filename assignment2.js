@@ -118,14 +118,7 @@ while(isShopping){
                 break;
         }
 
-        if (isShopping) {
-            let continueShopping = readlineSync.question("Do you want to continue shopping? (yes/no): ");
-            if (continueShopping.toLowerCase() !== 'yes') {
-                isShopping = false;
-                myCart.totalCost();
-                console.log("Thank you for shopping with us!");
-            }
-        }
+       
     }
 }
 shoppingProcess();
