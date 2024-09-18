@@ -1,40 +1,40 @@
-class ShoppingCart {
-    constructor() {
-        this.cart = []; 
-        this.couponDiscount = 0; 
-    }
-    addItemToCart(item, price, quantity, discount = 0) {
-        const existingItemIndex = this.cart.findIndex(cartItem => cartItem.item === item);
-        if (existingItemIndex !== -1) {
-            this.cart[existingItemIndex].quantity += quantity;
-            this.cart[existingItemIndex].price = price;
-            this.cart[existingItemIndex].discount = discount;
-        } else {
-            this.cart.push({ item, price, quantity, discount });
-        }
-        console.log(quantity + " " + item + " has been added to cart.");
+class shopCart{
+    constructor(){
+        this.cart=[];
+        this.discount = 0;
     }
 
-    removeItemFromCart(item) {
-        const itemIndex = this.cart.findIndex(cartItem => cartItem.item === item);
-
-        if (itemIndex !== -1) {
-            this.cart.splice(itemIndex, 1);
-            console.log(item + " removed from cart.");
-        } else {
-            console.log(item + " not found in cart.");
+     addItems(item,price,quantity,discount=0){
+        const index = this.cart.findIndex(cartItem=>cartItem.item==item);
+        if(index!=-1){
+            this.cart[index].price+=price;
+            this.cart[index].quantity=quantity;
+            this.cart[index].discount=discount;
+        }
+        else{
+            this.cart.push({item,price,quantity,discount});
+        }
+        console.log(quantity + " " + item + " has been added to cart")
+    }
+    removeItems(item){
+        const rindex = this.cart.findIndex(cartItem=>cartItem.item==item);
+        if(rindex!= -1){
+            this.cart.splice(rindex,1);
+            console.log(item + " has been removed from the cart.");
+        }
+        else{
+            console.log(item + " not found in the cart.");
         }
     }
-
-    viewCart() {
-        if (this.cart.length === 0) {
-            console.log("The cart is empty.");
-        } else {
-            console.log("Items in your cart:");
-            this.cart.forEach(cartItem => {
-                console.log(`${cartItem.quantity} x ${cartItem.item} @ $${cartItem.price} each (Discount: ${cartItem.discount}%)`);
-            });
+    showItems(){
+        if(this.cart.length==0){
+            console.log("Cart is empty..");
         }
+        else{
+        this.cart.forEach(cartitems=>{
+            console.log(cartitems.quantity + " " + cartitems.item + " for $" + cartitems.price + " at $" + cartitems.discount +  " discount.");
+        })
+    }
     }
 
     totalCost() {
@@ -67,40 +67,39 @@ class ShoppingCart {
             console.log("Invalid coupon code.");
         }
     }
+
 }
+const readlineSync = require('readline-sync');
 
-async function shoppingProcess() {
-    const readlineSync = require('readline-sync');
-    const myCart = new ShoppingCart();
+const myCart = new shopCart();
+let isShopping = true;
+async function shoppingProcess(){
+while(isShopping){
+    var action = readlineSync.question(`
+        1. Add items to cart
+        2. Check items in cart
+        3. Remove items from cart
+        4. Apply a coupon code
+        5. Proceed to Billing
 
-    let isShopping = true;
 
-    while (isShopping) {
-        let action = readlineSync.question(`
-What would you like to do?
-1. Add item to cart
-2. View cart
-3. Remove item from cart
-4. Apply coupon
-5. Proceed to billing
-Enter your choice (1-5): `);
-
-        switch (action) {
-            case '1':
-                let item = readlineSync.question("Enter the item name: ");
+        Enter one of the option from above (1 - 5): `);
+        switch(action){
+            case'1':
+            let item = readlineSync.question("Enter the item name: ");
                 let price = parseFloat(readlineSync.question("Enter the item price: "));
                 let quantity = parseInt(readlineSync.question("Enter the quantity: "));
                 let discount = parseFloat(readlineSync.question("Enter discount percentage (optional, default 0): ") || 0);
-                myCart.addItemToCart(item, price, quantity, discount);
+                myCart.addItems(item, price, quantity, discount);
                 break;
                 
             case '2':
-                myCart.viewCart();
+                myCart.showItems();
                 break;
 
             case '3':
                 let removeItem = readlineSync.question("Enter the item name to remove: ");
-                myCart.removeItemFromCart(removeItem);
+                myCart.removeItems(removeItem);
                 break;
 
             case '4':
@@ -130,3 +129,7 @@ Enter your choice (1-5): `);
     }
 }
 shoppingProcess();
+
+            
+
+        
