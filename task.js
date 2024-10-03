@@ -8,7 +8,7 @@ class todoList{
         console.log("Task added successfully!");
     }
     deleteTask(did){
-        var index = this.tasks.findIndex(task=>task.id==cid);
+        var index = this.tasks.findIndex(task=>task.id==did);
         if(index!=-1){
             this.tasks.splice(index,1);
             console.log("Task deleted successfully!");
@@ -65,6 +65,7 @@ async function manage(){
                 break;
             case 2:
                 var did = readlineSync.questionInt("Enter task id to be deleted: ");
+                did--;
                 todo.deleteTask(did);
                 break;
             case 3:
