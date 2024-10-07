@@ -26,6 +26,10 @@ class Library {
                 const newBorrower = new Borrower(bookToBorrow.title, bookToBorrow.copy);
                 this.borrow.push(newBorrower);
                 console.log("You have successfully borrowed the book: " + bookToBorrow.title);
+                this.borrow.forEach(borroww=>{
+                    console.log("The borrowed books are as follows: ");
+                    console.log(borroww.title);
+                })
             } else {
                 console.log("The book '" + bookToBorrow.title + "' is currently out of copies!");
             }
@@ -33,7 +37,20 @@ class Library {
             console.log("The book '" + bbname + "' is not found in the library.");
         }
     }
-
+    returnBorrowedBooks(bbbname) {
+        const borrowedBook = this.borrow.find(ret => ret.title.toLowerCase() === bbbname.toLowerCase());
+        if (borrowedBook) {
+            const libraryBook = this.books.find(book => book.title.toLowerCase() === bbbname.toLowerCase());
+            if (libraryBook) {
+                libraryBook.copy += 1;
+                console.log(`You have successfully returned the book: ${libraryBook.title}`);
+            }
+            this.borrow = this.borrow.filter(ret => ret.title.toLowerCase() !== bbbname.toLowerCase());
+        } else {
+            console.log(bbbname +  " was not found in your borrowed books.");
+        }
+    }
+    
     listBooks() {
         if (this.books.length === 0) {
             console.log("No books are currently present in the library...");
@@ -77,7 +94,8 @@ async function manageLibrary() {
             1: See list of books in the library
             2: Add more books to the library
             3: Borrow books
-            4: Exit
+            4: Return Borrowed Books
+            5: Exit
 
             Enter: `);
         switch (qn) {
@@ -102,6 +120,10 @@ async function manageLibrary() {
                 }
                 break;
             case 4:
+                const bbbname = readlineSync.question("Enter the name of the book that you want to return: ");
+                myLibrary.returnBorrowedBooks(bbbname);
+                break;
+            case 5:
                 managing = false;
                 break;
             default:
